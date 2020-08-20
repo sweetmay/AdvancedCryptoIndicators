@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Advanced Crypto Indicators</string>
+    <string name="fear_greed">Fear Greed</string>
+    <string name="bounce">Bounce</string>
+    <string name="timeseq">Time Sequence</string>
+    <string name="action_settings">action_settings</string>
+    <string name="settings_title">Settings</string>
+</resources>
