@@ -1,4 +1,4 @@
-package com.example.advancedcryptoindicators;
+package com.sweetmay.advancedcryptoindicators;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -8,10 +8,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 
-import com.example.advancedcryptoindicators.ui.FragmentBounce;
-import com.example.advancedcryptoindicators.ui.FragmentFearGreed;
-import com.example.advancedcryptoindicators.ui.FragmentPagerAdapter;
-import com.example.advancedcryptoindicators.ui.FragmentTimeSeq;
+import com.sweetmay.advancedcryptoindicators.Fragments.FragmentBounce;
+import com.sweetmay.advancedcryptoindicators.Fragments.FragmentFearGreed;
+import com.sweetmay.advancedcryptoindicators.Fragments.FragmentPagerAdapter;
+import com.sweetmay.advancedcryptoindicators.Fragments.FragmentTimeSeq;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;

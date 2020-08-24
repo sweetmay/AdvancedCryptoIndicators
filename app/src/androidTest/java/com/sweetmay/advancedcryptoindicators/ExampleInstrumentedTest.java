@@ -1,4 +1,4 @@
-package com.example.advancedcryptoindicators;
+package com.sweetmay.advancedcryptoindicators;
 
 import android.content.Context;
 

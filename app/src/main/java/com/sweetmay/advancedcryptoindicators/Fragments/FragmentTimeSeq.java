@@ -1,4 +1,4 @@
-package com.example.advancedcryptoindicators.ui;
+package com.sweetmay.advancedcryptoindicators.Fragments;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -8,14 +8,13 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.viewpager2.widget.ViewPager2;
 
-import com.example.advancedcryptoindicators.R;
+import com.sweetmay.advancedcryptoindicators.R;
 
-public class FragmentFearGreed extends Fragment {
+public class FragmentTimeSeq extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_tab_feargreed, container, false);
+        return inflater.inflate(R.layout.fragment_tab_timeseq, container, false);
     }
 }

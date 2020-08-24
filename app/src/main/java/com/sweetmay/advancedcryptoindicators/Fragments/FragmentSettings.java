@@ -1,10 +1,10 @@
-package com.example.advancedcryptoindicators.ui;
+package com.sweetmay.advancedcryptoindicators.Fragments;
 
 import android.os.Bundle;
 
 import androidx.preference.PreferenceFragmentCompat;
 
-import com.example.advancedcryptoindicators.R;
+import com.sweetmay.advancedcryptoindicators.R;
 
 public class FragmentSettings extends PreferenceFragmentCompat {
 

@@ -1,4 +1,4 @@
-package com.example.advancedcryptoindicators.ui;
+package com.sweetmay.advancedcryptoindicators.Fragments;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -9,7 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import com.example.advancedcryptoindicators.R;
+import com.sweetmay.advancedcryptoindicators.R;
 
 public class FragmentBounce extends Fragment {
     @Nullable

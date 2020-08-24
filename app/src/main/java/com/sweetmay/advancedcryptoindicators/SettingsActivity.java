@@ -1,4 +1,4 @@
-package com.example.advancedcryptoindicators;
+package com.sweetmay.advancedcryptoindicators;
 
 import android.os.Bundle;
 import android.view.View;
@@ -6,7 +6,7 @@ import android.view.View;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.advancedcryptoindicators.ui.FragmentSettings;
+import com.sweetmay.advancedcryptoindicators.Fragments.FragmentSettings;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.tabs.TabLayout;
 
@@ -23,7 +23,6 @@ public class SettingsActivity extends AppCompatActivity {
                 .beginTransaction()
                 .replace(R.id.fragment_container_settings, new FragmentSettings())
                 .commit();
-
         initToolbar();
     }
 
