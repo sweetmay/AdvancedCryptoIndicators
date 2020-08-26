@@ -5,4 +5,5 @@
     <string name="timeseq">Time Sequence</string>
     <string name="action_settings">action_settings</string>
     <string name="settings_title">Settings</string>
+    <string name="network_unavailable">Network is unavailable</string>
 </resources>

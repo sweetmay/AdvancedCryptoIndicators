@@ -4,7 +4,7 @@ import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
 
-public interface FnG {
+public interface FnGCall {
     @GET("fng/")
-    Call<FngRequest> loadFnG(@Query("limit") String limit);
+    Call<FngData> loadFnG(@Query("limit") String limit);
 }

@@ -2,6 +2,8 @@ package com.sweetmay.advancedcryptoindicators.request_fng;
 
 import android.util.Log;
 
+import com.sweetmay.advancedcryptoindicators.CallBackOnResultFnG;
+
 import java.io.IOException;
 
 import retrofit2.Response;
@@ -10,8 +12,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class GetFnGData {
     private static final String BASE_URL = "https://api.alternative.me/";
-    private FnG fng;
-    private Response<FngRequest> responseFnG;
+    private FnGCall fng;
+    private Response<FngData> responseFnG;
     private CallBackOnResultFnG callBackOnResult;
 
     public GetFnGData(CallBackOnResultFnG callBackOnResult){
@@ -25,7 +27,7 @@ public class GetFnGData {
                 .baseUrl(BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
-        fng = retrofit.create(FnG.class);
+        fng = retrofit.create(FnGCall.class);
     }
 
     public void requestFnG(String limit){
@@ -33,14 +35,14 @@ public class GetFnGData {
             @Override
             public void run() {
                 try {
-                    Response<FngRequest> response = fng.loadFnG(limit).execute();
+                    Response<FngData> response = fng.loadFnG(limit).execute();
                     if(response.body() != null && response.body().getMetadata().getError() == null){
-                        responseFnG =  response;
+                        responseFnG = response;
+                        callBackOnResult.onResultFnG(responseFnG);
                     }else throw new IOException();
                 }catch (IOException e){
                     Log.d("DebugLogs", String.valueOf(e));
                 }
-                callBackOnResult.onResult(responseFnG);
             }
         }).start();
     }
