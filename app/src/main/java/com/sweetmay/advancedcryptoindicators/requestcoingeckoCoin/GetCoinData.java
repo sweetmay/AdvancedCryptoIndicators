@@ -2,7 +2,8 @@ package com.sweetmay.advancedcryptoindicators.requestcoingeckoCoin;
 
 import android.os.Handler;
 import android.os.HandlerThread;
-import android.util.Log;
+
+import com.sweetmay.advancedcryptoindicators.CallBackOnResultCoinData;
 
 import java.io.IOException;
 import java.util.LinkedList;
@@ -17,6 +18,7 @@ public class GetCoinData {
     private CoinGeckoCoinCall coinCall;
     private final HandlerThread receiveDataThread;
     private Handler receiverHandler;
+    private CallBackOnResultCoinData callBackOnResultCoinData;
 
     public GetCoinData(){
         initRetrofit();
@@ -33,24 +35,21 @@ public class GetCoinData {
         coinCall = retrofit.create(CoinGeckoCoinCall.class);
     }
 
-    public void requestCoinData(LinkedList<String> coins, String days){
+    public void requestCoinData(LinkedList<String> coins, String days, CallBackOnResultCoinData callBackOnResultCoinData){
         receiverHandler.post(new Runnable() {
-            int j = 0;
             @Override
             public void run() {
                 while (coins.size() != 0){
                     try {
                         Response<CoinData> response = coinCall.loadCoin(coins.get(0), "usd", days).execute();
                         if(response.isSuccessful()){
-                            Log.d("DebugLogs", j + coins.get(0) + ": " + String.valueOf(response.body().getPrices().get(0).get(1)));
-                            j++;
+                            callBackOnResultCoinData.onCoinResult(coins.get(0), response);
                             coins.remove(0);
                         }
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
                 }
-                Log.d("DebugLogs", "Done");
             }
         });
     }
