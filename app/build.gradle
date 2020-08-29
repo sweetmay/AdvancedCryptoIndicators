@@ -27,11 +27,16 @@ android {
     }
 }
 
+configurations {
+    compile.exclude group: "junit", module: "junit"
+}
+
 repositories {
     maven { url 'https://jitpack.io' }
 }
 
 dependencies {
+    implementation group: 'com.workday', name: 'timeseries-forecast', version: '1.1.1'
     implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
     implementation fileTree(dir: "libs", include: ["*.jar"])
     implementation 'pl.pawelkleczkowski.customgauge:CustomGauge:1.0.4'
