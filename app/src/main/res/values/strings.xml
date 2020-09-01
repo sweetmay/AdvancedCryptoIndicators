@@ -2,8 +2,11 @@
     <string name="app_name">Advanced Crypto Indicators</string>
     <string name="fear_greed">Fear Greed</string>
     <string name="bounce">Bounce</string>
-    <string name="timeseq">Time Sequence</string>
+    <string name="error_loading_data">Couldn\'t load the data</string>
     <string name="action_settings">action_settings</string>
     <string name="settings_title">Settings</string>
     <string name="network_unavailable">Network is unavailable</string>
+    <string name="ai_prediction">AI forecast</string>
+    <string name="sell">SELL</string>
+    <string name="buy">BUY</string>
 </resources>

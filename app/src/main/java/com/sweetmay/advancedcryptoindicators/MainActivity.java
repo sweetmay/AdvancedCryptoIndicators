@@ -2,10 +2,12 @@ package com.sweetmay.advancedcryptoindicators;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 import androidx.viewpager2.widget.ViewPager2;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.PersistableBundle;
 import android.view.MenuItem;
 
 import com.sweetmay.advancedcryptoindicators.Fragments.FragmentBounce;
@@ -23,6 +25,9 @@ public class MainActivity extends AppCompatActivity {
     private TabLayout tabLayout;
     private FragmentPagerAdapter fragmentPagerAdapter;
     private MenuItem settingsButton;
+    private Fragment fragmentFnG;
+    private Fragment bounce;
+    private Fragment timeSeq;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,7 +35,15 @@ public class MainActivity extends AppCompatActivity {
         initViews();
     }
 
+
     private void initViews() {
+        if(fragmentFnG == null){
+            fragmentFnG = new FragmentFearGreed();
+        }
+
+        bounce = new FragmentBounce();
+        timeSeq = new FragmentTimeSeq();
+
         toolbar = findViewById(R.id.toolbar);
         tabLayout = findViewById(R.id.tabs);
         viewPager2 = findViewById(R.id.pager);
@@ -65,7 +78,7 @@ public class MainActivity extends AppCompatActivity {
                         tab.setText(R.string.bounce);
                         break;
                     case 2:
-                        tab.setText(R.string.timeseq);
+                        tab.setText(R.string.ai_prediction);
                         break;
                 }
             }
@@ -74,9 +87,16 @@ public class MainActivity extends AppCompatActivity {
 
     private void initFragmentPager() {
         fragmentPagerAdapter = new FragmentPagerAdapter(this);
-        fragmentPagerAdapter.addFragment(new FragmentFearGreed());
-        fragmentPagerAdapter.addFragment(new FragmentBounce());
-        fragmentPagerAdapter.addFragment(new FragmentTimeSeq());
+        fragmentPagerAdapter.addFragment(fragmentFnG);
+        fragmentPagerAdapter.addFragment(bounce);
+        fragmentPagerAdapter.addFragment(timeSeq);
+    }
+
+    private void initFragmentPager(Fragment fragmentFnG, Fragment fragmentBounce, Fragment fragmentTimeSeq){
+        fragmentPagerAdapter = new FragmentPagerAdapter(this);
+        fragmentPagerAdapter.addFragment(fragmentFnG);
+        fragmentPagerAdapter.addFragment(fragmentBounce);
+        fragmentPagerAdapter.addFragment(fragmentTimeSeq);
     }
 
 }

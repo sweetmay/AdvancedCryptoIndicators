@@ -19,6 +19,6 @@ public class XAxisDateFormatter extends ValueFormatter {
 
     @Override
     public String getAxisLabel(float value, AxisBase axis) {
-       return simpleDateFormat.format(new Date((long)value*1000));
+       return simpleDateFormat.format(new Date((long)value));
     }
 }

@@ -62,7 +62,6 @@ public class FragmentFearGreed extends Fragment implements CallBackOnResultFnG{
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        setRetainInstance(true);
         return inflater.inflate(R.layout.fragment_tab_feargreed, container, false);
     }
     
@@ -97,10 +96,6 @@ public class FragmentFearGreed extends Fragment implements CallBackOnResultFnG{
         });
     }
 
-    @Override
-    public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
-        super.onViewStateRestored(savedInstanceState);
-    }
 
     private void BTCGet(){
         GetCryptoData getCryptoData = new GetCryptoData(this);
@@ -184,7 +179,7 @@ public class FragmentFearGreed extends Fragment implements CallBackOnResultFnG{
     private void initCoinGeckoDataForChart(List<List<Float>> data){
         ArrayList<Entry> entries = new ArrayList<>();
         for (List<Float> priceDate: data) {
-            entries.add(new Entry((priceDate.get(0)/1000), priceDate.get(1)));
+            entries.add(new Entry((priceDate.get(0)), priceDate.get(1)));
         }
         coinGeckoDataSet = new LineDataSet(entries, "Bitcoin");
     }
@@ -194,7 +189,7 @@ public class FragmentFearGreed extends Fragment implements CallBackOnResultFnG{
         ArrayList<Entry> entries = new ArrayList<>();
         Collections.reverse(data);
         for (Datum datum: data) {
-            entries.add(new Entry(Float.parseFloat(datum.getTimestamp()), Float.parseFloat(datum.getValue())));
+            entries.add(new Entry(Float.parseFloat(datum.getTimestamp())*1000, Float.parseFloat(datum.getValue())));
         }
         fngDataSet = new LineDataSet(entries, "Fear and Greed");
     }

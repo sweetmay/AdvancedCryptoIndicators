@@ -38,7 +38,7 @@ public class GetListData {
                         onResultListCallBack.onResult(response);
                     }else throw new IOException();
                 }catch (IOException e){
-                    Log.d("DebugLogs", String.valueOf(e));
+                    Log.d("DebugLogs", String.valueOf(e) + "joopa");
                 }
             }
         }).start();
