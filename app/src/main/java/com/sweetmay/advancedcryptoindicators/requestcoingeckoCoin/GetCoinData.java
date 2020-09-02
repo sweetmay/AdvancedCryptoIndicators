@@ -53,6 +53,7 @@ public class GetCoinData {
                         e.printStackTrace();
                     }
                 }
+
     }
 
     public void requestCoinData(String coin, String days, CallBackOnResultCoinData callBackOnResultCoinData){

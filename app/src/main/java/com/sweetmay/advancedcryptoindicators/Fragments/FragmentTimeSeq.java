@@ -34,6 +34,7 @@ public class FragmentTimeSeq extends Fragment implements OnSearchRVItemClick {
     private Prediction prediction;
     private GetCoinData getCoinData;
     private LinkedList<String> coins = new LinkedList<>();
+    private LinkedList<String> icons = new LinkedList<>();
     private int backTestNum = 0;
     private int forecastPeriod = 60;
     private RecyclerView searchRV;
@@ -70,11 +71,12 @@ public class FragmentTimeSeq extends Fragment implements OnSearchRVItemClick {
             public void onResult(Response<List<ListDatum>> listDataResponse) {
                 for (int i = 0; i < listDataResponse.body().size(); i++) {
                     coins.add(listDataResponse.body().get(i).getId());
+                    icons.add(listDataResponse.body().get(i).getImage());
                 }
                 uiHandler.post(new Runnable() {
                     @Override
                     public void run() {
-                        searchRVAdapter.invalidateRV(coins);
+                        searchRVAdapter.invalidateRV(coins, icons);
                     }
                 });
 

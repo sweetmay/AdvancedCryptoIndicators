@@ -9,4 +9,8 @@
     <string name="ai_prediction">AI forecast</string>
     <string name="sell">SELL</string>
     <string name="buy">BUY</string>
+    <string name="probability">"Index Strength: "</string>
+    <string name="entry">"Entry: "</string>
+    <string name="target">"Target: "</string>
+    <string name="stop_loss">"Stop Loss: "</string>
 </resources>

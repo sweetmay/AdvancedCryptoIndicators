@@ -38,6 +38,7 @@ public class FragmentBounce extends Fragment implements CallBackOnResultCoinData
 
     private static final Object monitorForList = new Object();
 
+    private int numberOfCoins;
     private Map<String, String> coinsWithImages;
     private Handler uiHandler;
     private GetCoinData getCoinData;
@@ -48,10 +49,7 @@ public class FragmentBounce extends Fragment implements CallBackOnResultCoinData
     private RecyclerView recyclerView;
 
     private MaterialProgressBar progressBar;
-
-
-    private HandlerThread RSIResolverThread;
-    private Handler RSIHandler;
+    private int progress = 0;
 
     private RSICalculator rsiCalculator;
 
@@ -63,8 +61,6 @@ public class FragmentBounce extends Fragment implements CallBackOnResultCoinData
         callBackOnResultCoinData = this;
         fetchedCoins = new HashMap<>();
 
-        initRSIResolverThread();
-
         return inflater.inflate(R.layout.fragment_tab_bounce, container, false);
     }
 
@@ -74,11 +70,6 @@ public class FragmentBounce extends Fragment implements CallBackOnResultCoinData
 
     }
 
-    private void initRSIResolverThread() {
-        RSIResolverThread = new HandlerThread("RSIResolverThread");
-        RSIResolverThread.start();
-        RSIHandler = new Handler(RSIResolverThread.getLooper());
-    }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
@@ -93,7 +84,7 @@ public class FragmentBounce extends Fragment implements CallBackOnResultCoinData
     private void initRV() {
         recyclerView = getView().findViewById(R.id.bounce_rv);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity().getBaseContext());
-        adapter = new BounceRVAdapter();
+        adapter = new BounceRVAdapter(this.getContext());
         adapter.setHasStableIds(true);
         recyclerView.setAdapter(adapter);
         recyclerView.setItemAnimator(null);
@@ -107,6 +98,7 @@ public class FragmentBounce extends Fragment implements CallBackOnResultCoinData
             public void onResult(Response<List<ListDatum>> listDataResponse) {
                 fillCoinsList(listDataResponse);
                 getCoinData.requestCoinData(coinsWithImages, "90", callBackOnResultCoinData);
+
             }
         });
     }
@@ -118,8 +110,8 @@ public class FragmentBounce extends Fragment implements CallBackOnResultCoinData
                 coinsWithImages.put(listDataResponse.body().get(i).getId(), listDataResponse.body().get(i).getImage());
             }
         }
-        progressBar.setProgress(0);
-        progressBar.setMax(coinsWithImages.size());
+        progress = 1;
+        numberOfCoins = coinsWithImages.entrySet().size();
     }
 
     @Override
@@ -143,20 +135,24 @@ public class FragmentBounce extends Fragment implements CallBackOnResultCoinData
         rsiCalculator.calculateRSI(pricesList, new OnRSIResultCallBack() {
             @Override
             public void onResultRSI(String rsiData) {
+                progress++;
+                if(progress == numberOfCoins){
+                    uiHandler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            progressBar.setVisibility(View.GONE);
+                        }
+                    });
+                }
                 if(Float.parseFloat(rsiData) >= 60 || Float.parseFloat(rsiData)<=30){
                     uiHandler.post(new Runnable() {
                         @Override
                         public void run() {
-                            adapter.invalidateRV(new BounceEntity(coinAndImage.getKey(), rsiData, coinAndImage.getValue()));
-                            progressBar.setProgress(progressBar.getProgress() + 1);
-                            if (progressBar.getProgress() == progressBar.getMax()) {
-                                progressBar.setVisibility(View.GONE);
-                            }
+                            adapter.invalidateRV(new BounceEntity(coinAndImage.getKey(), Float.parseFloat(rsiData), coinAndImage.getValue(), pricesList.get(pricesList.size()-1)));
 
                         }
                     });
             }
-                progressBar.setProgress(progressBar.getProgress() + 1);
                 fetchedCoins.remove(coinAndImage.getKey());
             }
         });

@@ -12,13 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:cardCornerRadius="0dp"
-        app:cardElevation="6dp"
-        app:strokeWidth="1dp"
-        android:layout_margin="4dp"
-        app:strokeColor="@color/material_on_surface_stroke"
-        android:paddingBottom="4dp"
+        style="@style/CardViewCustom"
         >
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -37,7 +31,7 @@
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_weight="2">
+                    android:layout_weight="4">
                     <ImageView
                         android:id="@+id/icon_coin"
                         android:layout_width="40dp"
@@ -60,10 +54,12 @@
                         android:id="@+id/indicator_bounce"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        app:layout_constraintBottom_toBottomOf="@id/icon_coin"
+                        app:layout_constraintTop_toBottomOf="@id/coin_name_bounce"
                         app:layout_constraintStart_toEndOf="@id/icon_coin"
-                        tools:ignore="RtlSymmetry">
+                        >
                     </TextView>
+
+
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -75,20 +71,10 @@
                 android:layout_height="match_parent"
                 >
 
-                <androidx.appcompat.widget.AppCompatImageView
-                    android:id="@+id/expand_button"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    android:src="@drawable/ic_expand_more_24px"
-                    />
-
                 <ImageView
                     android:id="@+id/buy_sell_icon"
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -101,7 +87,7 @@
                     android:layout_height="wrap_content"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toEndOf="@id/expand_button" />
+                    app:layout_constraintStart_toStartOf="parent" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -120,42 +106,44 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <TextView
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    android:id="@+id/indicator_value"
-                    android:text="value"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    />
-
+                android:layout_height="match_parent"
+                android:paddingStart="45dp"
+                android:paddingBottom="24dp"
+                tools:ignore="RtlSymmetry">
                 <TextView
                     android:id="@+id/buy_price"
-                    android:text="price"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"/>
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"/>
 
                 <TextView
                     android:id="@+id/stop_loss"
-                    android:text="stoploss"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/buy_price"
                     />
                 <TextView
                     android:id="@+id/target"
-                    android:text="target"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     app:layout_constraintTop_toBottomOf="@id/stop_loss"
-                    app:layout_constraintEnd_toEndOf="parent"/>
+                    app:layout_constraintStart_toStartOf="parent"/>
             </androidx.constraintlayout.widget.ConstraintLayout>
             </LinearLayout>
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/expand_button"
+                android:paddingTop="32dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:src="@drawable/ic_expand_more_24px"
+                />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
     </com.google.android.material.card.MaterialCardView>
 </androidx.constraintlayout.widget.ConstraintLayout>
