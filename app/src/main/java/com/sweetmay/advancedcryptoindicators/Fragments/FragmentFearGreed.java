@@ -51,6 +51,7 @@ public class FragmentFearGreed extends Fragment implements CallBackOnResultFnG{
     private Handler uiHandler;
     private TextView resultEval;
     private SimpleDateFormat simpleDateFormat;
+
     private LineChart lineChart;
     private LineDataSet fngDataSet;
     private LineDataSet coinGeckoDataSet;

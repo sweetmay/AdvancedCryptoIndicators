@@ -53,6 +53,7 @@ public class GetCoinData {
                         e.printStackTrace();
                     }
                 }
+                callBackOnResultCoinData.onDone();
 
     }
 

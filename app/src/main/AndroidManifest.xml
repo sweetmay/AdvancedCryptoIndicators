@@ -20,6 +20,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".predictionLineChartActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
         <activity android:name="com.sweetmay.advancedcryptoindicators.SettingsActivity"
             android:label="Settings"
             android:parentActivityName="com.sweetmay.advancedcryptoindicators.MainActivity">

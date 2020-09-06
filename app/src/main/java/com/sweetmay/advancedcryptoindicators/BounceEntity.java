@@ -34,7 +34,7 @@ public class BounceEntity {
     private DecimalFormat percent;
 
     public BounceEntity(String coin, Float indicator, String imageUrl, Float entryPrice){
-        decimalFormat = new DecimalFormat("##.###");
+        decimalFormat = new DecimalFormat("##.######");
         percent = new DecimalFormat("##.##");
 
         this.entryPrice = entryPrice;
@@ -53,7 +53,7 @@ public class BounceEntity {
             return indicator;
         }else
             loss = Math.abs(entryPrice/stopLoss-1)*100;
-            profit = (entryPrice/target -1)*100;
+            profit = Math.abs(entryPrice/target -1)*100;
             return Math.abs(100 - indicator);
     }
 

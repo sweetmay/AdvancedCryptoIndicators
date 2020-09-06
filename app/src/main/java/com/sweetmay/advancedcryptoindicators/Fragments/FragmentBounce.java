@@ -38,7 +38,6 @@ public class FragmentBounce extends Fragment implements CallBackOnResultCoinData
 
     private static final Object monitorForList = new Object();
 
-    private int numberOfCoins;
     private Map<String, String> coinsWithImages;
     private Handler uiHandler;
     private GetCoinData getCoinData;
@@ -49,7 +48,6 @@ public class FragmentBounce extends Fragment implements CallBackOnResultCoinData
     private RecyclerView recyclerView;
 
     private MaterialProgressBar progressBar;
-    private int progress = 0;
 
     private RSICalculator rsiCalculator;
 
@@ -95,7 +93,7 @@ public class FragmentBounce extends Fragment implements CallBackOnResultCoinData
         GetListData getListData = new GetListData();
         getListData.requestList(new onResultListCallBack() {
             @Override
-            public void onResult(Response<List<ListDatum>> listDataResponse) {
+            public void onResultList(Response<List<ListDatum>> listDataResponse) {
                 fillCoinsList(listDataResponse);
                 getCoinData.requestCoinData(coinsWithImages, "90", callBackOnResultCoinData);
 
@@ -105,18 +103,28 @@ public class FragmentBounce extends Fragment implements CallBackOnResultCoinData
 
     private void fillCoinsList(Response<List<ListDatum>> listDataResponse) {
         for (int i = 0; i < listDataResponse.body().size(); i++) {
-            if(listDataResponse.body().get(i).getPriceChangePercentage1hInCurrency() <= -1f
-                    || listDataResponse.body().get(i).getPriceChangePercentage1hInCurrency() >= 1f){
-                coinsWithImages.put(listDataResponse.body().get(i).getId(), listDataResponse.body().get(i).getImage());
+            if(listDataResponse.body().get(i).getPriceChangePercentage1hInCurrency()!=null){
+                if(listDataResponse.body().get(i).getPriceChangePercentage1hInCurrency() <= -1f
+                        || listDataResponse.body().get(i).getPriceChangePercentage1hInCurrency() >= 1f){
+                    coinsWithImages.put(listDataResponse.body().get(i).getId(), listDataResponse.body().get(i).getImage());
+                }
             }
         }
-        progress = 1;
-        numberOfCoins = coinsWithImages.entrySet().size();
     }
 
     @Override
     public void onCoinFail() {
 
+    }
+
+    @Override
+    public void onDone() {
+        uiHandler.post(new Runnable() {
+            @Override
+            public void run() {
+                progressBar.setVisibility(View.GONE);
+            }
+        });
     }
 
     @Override
@@ -132,29 +140,23 @@ public class FragmentBounce extends Fragment implements CallBackOnResultCoinData
             pricesList.add(fetchedCoins.get(coinAndImage.getKey()).body().getPrices().get(i).get(1));
         }
 
-        rsiCalculator.calculateRSI(pricesList, new OnRSIResultCallBack() {
-            @Override
-            public void onResultRSI(String rsiData) {
-                progress++;
-                if(progress == numberOfCoins){
-                    uiHandler.post(new Runnable() {
-                        @Override
-                        public void run() {
-                            progressBar.setVisibility(View.GONE);
-                        }
-                    });
-                }
-                if(Float.parseFloat(rsiData) >= 60 || Float.parseFloat(rsiData)<=30){
-                    uiHandler.post(new Runnable() {
-                        @Override
-                        public void run() {
-                            adapter.invalidateRV(new BounceEntity(coinAndImage.getKey(), Float.parseFloat(rsiData), coinAndImage.getValue(), pricesList.get(pricesList.size()-1)));
+        if(pricesList.size()>=14){
+            rsiCalculator.calculateRSI(pricesList, new OnRSIResultCallBack() {
+                @Override
+                public void onResultRSI(String rsiData) {
 
-                        }
-                    });
-            }
-                fetchedCoins.remove(coinAndImage.getKey());
-            }
-        });
+                    if(Float.parseFloat(rsiData) >= 65 || Float.parseFloat(rsiData)<=35){
+                        uiHandler.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                adapter.invalidateRV(new BounceEntity(coinAndImage.getKey(), Float.parseFloat(rsiData), coinAndImage.getValue(), pricesList.get(pricesList.size()-1)));
+                            }
+                        });
+                    }
+                    fetchedCoins.remove(coinAndImage.getKey());
+                }
+            });
+        }
+
     }
 }

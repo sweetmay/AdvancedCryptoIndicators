@@ -35,7 +35,7 @@ public class GetListData {
                 try {
                     Response<List<ListDatum>> response = coinGeckoListCall.loadList().execute();
                     if(response.body() != null && response.isSuccessful()){
-                        onResultListCallBack.onResult(response);
+                        onResultListCallBack.onResultList(response);
                     }else throw new IOException();
                 }catch (IOException e){
                     Log.d("DebugLogs", String.valueOf(e));

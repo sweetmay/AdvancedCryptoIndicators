@@ -10,4 +10,6 @@ public interface CallBackOnResultCoinData {
     void onCoinResult(String coin, Response<CoinData> response);
     void onCoinResult(Map.Entry<String, String> coinAndImage, Response<CoinData> response);
     void onCoinFail();
+
+    void onDone();
 }

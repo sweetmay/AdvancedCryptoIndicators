@@ -5,5 +5,6 @@ import java.util.List;
 import retrofit2.Response;
 
 public interface onResultListCallBack {
-    void onResult(Response<List<ListDatum>> listDataResponse);
+    void onResultList(Response<List<ListDatum>> listDataResponse);
+
 }

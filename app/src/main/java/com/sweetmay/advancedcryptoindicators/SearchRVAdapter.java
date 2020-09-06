@@ -13,17 +13,18 @@ import com.google.android.material.card.MaterialCardView;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 public class SearchRVAdapter extends RecyclerView.Adapter<SearchRVAdapter.ViewHolder> {
-    private LinkedList<String> icons;
-    private LinkedList<String> valuesList;
+    private Map<String, String> coinsAndImages;
+    private ArrayList<String> coins;
     private OnSearchRVItemClick onSearchRVItemClick;
 
     public SearchRVAdapter(OnSearchRVItemClick onSearchRVItemClick){
         this.onSearchRVItemClick = onSearchRVItemClick;
-        valuesList =  new LinkedList<>();
+        coinsAndImages =  new LinkedHashMap<>();
     }
 
     @NonNull
@@ -43,23 +44,23 @@ public class SearchRVAdapter extends RecyclerView.Adapter<SearchRVAdapter.ViewHo
         holder.searchItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                onSearchRVItemClick.onRVSearchClick(valuesList.get(position));
+                onSearchRVItemClick.onRVSearchClick(coins.get(position));
             }
         });
     }
 
-    public void invalidateRV(LinkedList<String> coins, LinkedList<String> icons){
-        this.icons = icons;
-        valuesList = coins;
+    public void invalidateRV(Map<String, String> coinAndImage){
+        coinsAndImages = coinAndImage;
+        coins = new ArrayList<>(coinsAndImages.keySet());
         notifyDataSetChanged();
     }
 
     @Override
     public int getItemCount() {
-        if(valuesList == null || valuesList.size() == 0) {
+        if(coinsAndImages == null || coinsAndImages.size() == 0) {
             return 0;
         }else {
-            return valuesList.size();
+            return coinsAndImages.size();
         }
     }
 
@@ -77,8 +78,8 @@ public class SearchRVAdapter extends RecyclerView.Adapter<SearchRVAdapter.ViewHo
         }
 
         public void setSearchItem(int position){
-            searchItem.setText(valuesList.get(position));
-            Picasso.get().load(icons.get(position)).into(icon);
+            searchItem.setText(coins.get(position));
+            Picasso.get().load(coinsAndImages.get(coins.get(position))).into(icon);
         }
     }
 }
